@@ -100,5 +100,8 @@ venv.bak/
 # mkdocs documentation
 /site
 
-# mypy
+# mighty
 .mypy_cache/
+
+# idea
+.idea
