@@ -1,0 +1,100 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+        <link rel="stylesheet" href="{% static 'css/pine_style.css' %}">
+        <script src="{% static 'css/pine_script.css' %}"></script>
+
+        <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+        <title>Hello, world!</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm bg-primary">
+            <div class="col-2">
+                <ul class="navbar-nav">
+                    <li>
+                        <h1 class="text-white">Pine</h1>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-9"></div>
+            <div class="col-1">
+                <ul class="navbar-nav">
+                    <li>
+                        <a href="logout" class="text-light">выйти</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="container" style="margin-top: 15%">
+            <form>
+                <div class="file-upload">
+                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">
+                        Загрузите архив
+                    </button>
+                    <div class="zip-upload-wrap">
+                        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="zip/*" />
+                            <div class="drag-text hover">
+                                <h3>Перетащите архив сюда</h3>
+                            </div>
+                    </div>
+                    <div class="file-upload-content">
+                        <div class="zip-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-zip">
+                                Убрать 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>            
+        </div>
+        
+
+        <!-- <div class="row">
+            <form role="form">
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                </div>
+                <input type="submit" value="Register" class="btn btn-info btn-block" >
+            </form>
+        </div> -->
+    
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

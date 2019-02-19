@@ -1,0 +1,41 @@
+
+#Welcome
+{
+	font-size: 30px;
+	padding-bottom: 10px;
+	color: #1579f6;
+}
+#Forgot
+{
+	float: right;
+}
+#idea
+{
+	margin-top: 80px;
+	margin-left: 40%;
+}
+.submenu{
+	display: block;
+}
+.submenu li{
+	margin-top: -10px;
+	float: left;
+	display: block;
+	margin-right: 25px;
+	font-weight: bolder;
+	font-size: 20px;
+}
+.submenu li a{
+	color: white;
+	text-decoration: none;
+}
+#Piner{
+	font-size: 500px;
+	color: #1579f6;
+}
+#Piner2{
+	color: #73f33f;
+}
+#Sign{
+	padding-top: 40px;
+}
