@@ -21,7 +21,7 @@ def login(request):
             else:
                 auth.login(request, user)
                 return redirect('home')
-    return render(request, 'pineapp/login.html', data)
+    return render(request, 'MainApp/login.html', data)
 
 
 def signup(request):
@@ -45,14 +45,14 @@ def signup(request):
             user = auth.authenticate(username=user_login, password=user_password)
             auth.login(request, user)
             return redirect('home')
-    return render(request, 'pineapp/signup.html', data)
+    return render(request, 'MainApp/signup.html', data)
 
 
 def home(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    return render(request, 'pineapp/home.html')
+    return render(request, 'MainApp/home.html')
 
 
 def logout(request):
