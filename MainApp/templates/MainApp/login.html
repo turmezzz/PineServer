@@ -2,28 +2,23 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Pine - login</title>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Pine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'css/login_style.css' %}"/>
-        <style type="text/css">
-            .centered-form{ margin-top: 100px; margin-left: 400px}
-        </style>
-
     </head>
     <body>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <nav class="navbar navbar bg-primary">
             <div class="col-2">
                 <ul class="navbar-nav">
                     <li>
-                        <h1 class="text-light">Pine</h1>
+                        <a href="login" class="logo_link">
+                            <h1 class="text-light">Pine</h1>    
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -31,13 +26,10 @@
                 <nav>
                     <ul class = "submenu">
                         <li>
-                            <a href="https://www.google.com" >Abous Us</a>
+                            <a href="info">Info</a>
                         </li>
                         <li>
-                            <a href="https://www.google.com">Contacts</a>
-                        </li>
-                        <li>
-                            <a href="https://www.google.com">Information</a>
+                            <a href="about">About</a>
                         </li>
                     </ul>
                 </nav>
@@ -47,7 +39,8 @@
             <div id = "idea"class="row form">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 id = Welcome class="panel-title text-black col-8 m-auto">       Welcome
+                        <h3 id = Welcome class="panel-title text-black col-8 m-auto">
+                            Welcome
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -59,7 +52,7 @@
                                 <input type="password" name="password" class="form-control input-sm" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Log in" class="btn btn-info btn-block" >    
+                                <input type="submit" value="Log in" class="btn btn-info btn-block">
                             </div>
                             <div class="form-group">
                                 <a id = Forgot href="https://www.google.com">
@@ -72,12 +65,14 @@
                                 Sign up
                             </a>
                         </form>   
-                        {{ message }}
+                        <div class="message">   
+                            {{ message }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <style> .colortext {
+        <!-- <style> .colortext {
             color: #73f33f; 
         }
         </style>
@@ -87,6 +82,6 @@
         </style>
         <div id = "Piner">
             P<span class="colortextt">i</span>n<span class="colortext">e</span>
-        </div>  
+        </div>   -->
     </body>
 </html>

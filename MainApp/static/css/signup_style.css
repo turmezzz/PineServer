@@ -1,0 +1,34 @@
+.submenu{
+  display: block;
+}
+
+.submenu li{
+  margin-top: -10px;
+  float: left;
+  display: block;
+  margin-right: 25px;
+}
+
+.submenu li a{
+  color: white;
+  text-decoration: none;
+}
+
+.message{
+	color: red;
+	text-align: center;
+	margin-top: 5%;
+}
+
+.centered-form{
+	margin-left: 37%;
+	margin-top: 15%;
+}
+
+.logo_link{
+  text-decoration: none;
+}
+
+.logo_link:hover{
+  text-decoration: none;
+}

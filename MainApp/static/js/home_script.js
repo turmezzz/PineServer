@@ -25,8 +25,9 @@ function removeUpload() {
   $('.zip-upload-wrap').show();
 }
 $('.zip-upload-wrap').bind('dragover', function () {
-        $('.zip-upload-wrap').addClass('zip-dropping');
-    });
-    $('.zip-upload-wrap').bind('dragleave', function () {
-        $('.zip-upload-wrap').removeClass('zip-dropping');
+    $('.zip-upload-wrap').addClass('zip-dropping');
+  });
+  $('.zip-upload-wrap').bind('dragleave', function () {
+    $('.zip-upload-wrap').removeClass('zip-dropping');
 });
+
