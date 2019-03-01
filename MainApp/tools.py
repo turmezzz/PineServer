@@ -34,11 +34,11 @@ def send_mail(mail, name):
         part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(name))
         msg.attach(part)
     server = smtplib.SMTP('smtp.gmail.com', 587)  # Создаем объект SMTP
-    server.set_debuglevel(True)  # Включаем режим отладки - если отчет не нужен, строку можно закомментировать
     server.starttls()  # Начинаем шифрованный обмен по TLS
     server.login(addr_from, password)  # Получаем доступ
     server.send_message(msg)  # Отправляем сообщение
     server.quit()  # Выходим
+    return True
 
 def is_zip(file_name):
     pattern = r'.+\.zip'
