@@ -6,6 +6,35 @@ from email.mime.multipart import MIMEMultipart      # Многокомпонен
 from email.mime.text import MIMEText                # Текст/HTML
 from email.mime.base import MIMEBase
 from email.encoders import encode_base64
+import collections
+import pandas as pd
+import numpy as np
+
+
+def maxMetric(logs, top = 3):
+    counts = collections.Counter()
+    with open('labels.txt', 'r') as f:
+        for line in f:
+            counts[line.split('\n')[0]] = 0
+    for log in logs:
+        for arr in log:
+            if arr['label'] in counts:
+                counts[arr['label']] += 1
+    col = counts.most_common(top)
+    genMaxMetric(col,top)
+
+
+def genMaxMetric(counts, top):
+    arr = []
+    for i,count in enumerate(counts):
+        if i >= top:
+            break
+        arr.append(count[1])
+    arr = np.array(arr).reshape(-1,1)
+    count = list(set([x[0] for x in counts]))
+    df = pd.DataFrame(arr[:top,0], index=count[:top])
+    df.to_csv('MaxMetric.csv',encoding='utf-8')
+
 
 def send_mail(mail, name):
     addr_from = "messageFromPine@gmail.com"  # Адресат
@@ -39,6 +68,7 @@ def send_mail(mail, name):
     server.send_message(msg)  # Отправляем сообщение
     server.quit()  # Выходим
     return True
+
 
 def is_zip(file_name):
     pattern = r'.+\.zip'
