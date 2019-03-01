@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 
 
-def maxMetric(logs, top = 3):
+def maxMetric(logs:'[[{},{}...]...]', top = 3):
     counts = collections.Counter()
     with open('labels.txt', 'r') as f:
         for line in f:
@@ -24,7 +24,7 @@ def maxMetric(logs, top = 3):
     genMaxMetric(col,top)
 
 
-def genMaxMetric(counts, top):
+def genMaxMetric(counts:'[(),()...]', top):
     arr = []
     for i,count in enumerate(counts):
         if i >= top:
