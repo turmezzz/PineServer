@@ -52,6 +52,18 @@
                     </div>
                 </div>
                 <div>
+                    <h3>
+                        SELECT OBJS
+                    </h3>
+                    <div class="bg">
+                        {% for obj in detection_objects%}
+                            <div style="display: block; float: left;">
+                                <input type="checkbox" name="{{ obj }}">
+                                <label>{{ obj }}</label><br>
+                            </div>
+                        {% endfor %}
+                    </div>
+                <div>
                     <input type="submit" value="send" class="btn btn-info btn-block">    
                 </div>
             </form> 

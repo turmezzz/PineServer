@@ -1,0 +1,37 @@
+aeroplane
+apple
+backpack
+banana
+baseball bat
+baseball glove
+bear
+bed
+bench
+bicycle
+bird
+boat
+book
+bottle
+bowl
+broccoli
+bus
+cake
+car
+carrot
+cat
+cell phone
+chair
+clock
+cow
+cup
+diningtable
+dog
+donut
+elephant
+fire hydrant
+fork
+frisbee
+giraffe
+hair drier
+handbag
+horse
