@@ -38,7 +38,28 @@ def gen_maxMetric(counts:'[(),()...]', top):
 
 
 def median_metric(logs:'[[{},{}...]...]'):
-    counts = collections.Counter()
+    counts = {}
+    for log in logs:
+        for arr in log:
+            if arr['label'] in counts:
+                counts[arr['label']][0] += 1
+                counts[arr['label']][1] += arr['confidence']
+            else:
+                counts[arr['label']] = [1, arr['confidence']]
+    gen_medianMetric(counts)
+
+def gen_medianMetric(counts:'[(),()...]'):
+    arr = []
+    for ch in counts:
+        counts[ch][1] = counts[ch][1]/counts[ch][0]*counts[ch][0]
+        arr.extend(counts[ch])
+    arr = np.array(arr).reshape(-1,2)
+    count = list(set([x[0] for x in counts]))
+    # print(counts.keys())
+    df = pd.DataFrame(arr, index=counts.keys(), columns=['count', 'per'])
+    df.index.name = 'objects'
+    df.to_csv('MedianMetric.csv',encoding='utf-8')
+
 
 def send_mail(mail, name):
     addr_from = "messageFromPine@gmail.com"  # Адресат
