@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 
 
-def maxMetric(logs:'[[{},{}...]...]', top = 3):
+def max_metric(logs:'[[{},{}...]...]', top = 3):
     counts = collections.Counter()
     with open('labels.txt', 'r') as f:
         for line in f:
@@ -21,10 +21,10 @@ def maxMetric(logs:'[[{},{}...]...]', top = 3):
             if arr['label'] in counts:
                 counts[arr['label']] += 1
     col = counts.most_common(top)
-    genMaxMetric(col,top)
+    gen_maxMetric(col,top)
 
 
-def genMaxMetric(counts:'[(),()...]', top):
+def gen_maxMetric(counts:'[(),()...]', top):
     arr = []
     for i,count in enumerate(counts):
         if i >= top:
@@ -32,9 +32,13 @@ def genMaxMetric(counts:'[(),()...]', top):
         arr.append(count[1])
     arr = np.array(arr).reshape(-1,1)
     count = list(set([x[0] for x in counts]))
-    df = pd.DataFrame(arr[:top,0], index=count[:top])
+    df = pd.DataFrame(arr[:top,0], index=count[:top], columns=['count'])
+    df.index.name = 'objects'
     df.to_csv('MaxMetric.csv',encoding='utf-8')
 
+
+def median_metric(logs:'[[{},{}...]...]'):
+    counts = collections.Counter()
 
 def send_mail(mail, name):
     addr_from = "messageFromPine@gmail.com"  # Адресат
