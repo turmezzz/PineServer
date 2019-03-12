@@ -13,6 +13,60 @@ from email.mime.multipart import MIMEMultipart      # Многокомпонен
 from email.mime.text import MIMEText                # Текст/HTML
 from email.mime.base import MIMEBase
 from email.encoders import encode_base64
+import collections
+import pandas as pd
+import numpy as np
+
+
+def max_metric(logs:'[[{},{}...]...]', top = 3):
+    counts = collections.Counter()
+    with open('labels.txt', 'r') as f:
+        for line in f:
+            counts[line.split('\n')[0]] = 0
+    for log in logs:
+        for arr in log:
+            if arr['label'] in counts:
+                counts[arr['label']] += 1
+    col = counts.most_common(top)
+    gen_maxMetric(col,top)
+
+
+def gen_maxMetric(counts:'[(),()...]', top):
+    arr = []
+    for i,count in enumerate(counts):
+        if i >= top:
+            break
+        arr.append(count[1])
+    arr = np.array(arr).reshape(-1,1)
+    count = list(set([x[0] for x in counts]))
+    df = pd.DataFrame(arr[:top,0], index=count[:top], columns=['count'])
+    df.index.name = 'objects'
+    df.to_csv('MaxMetric.csv',encoding='utf-8')
+
+
+def median_metric(logs:'[[{},{}...]...]'):
+    counts = {}
+    for log in logs:
+        for arr in log:
+            if arr['label'] in counts:
+                counts[arr['label']][0] += 1
+                counts[arr['label']][1] += arr['confidence']
+            else:
+                counts[arr['label']] = [1, arr['confidence']]
+    gen_medianMetric(counts)
+
+def gen_medianMetric(counts:'[(),()...]'):
+    arr = []
+    for ch in counts:
+        counts[ch][1] = counts[ch][1]/counts[ch][0]*counts[ch][0]
+        arr.extend(counts[ch])
+    arr = np.array(arr).reshape(-1,2)
+    count = list(set([x[0] for x in counts]))
+    # print(counts.keys())
+    df = pd.DataFrame(arr, index=counts.keys(), columns=['count', 'per'])
+    df.index.name = 'objects'
+    df.to_csv('MedianMetric.csv',encoding='utf-8')
+
 
 
 def send_mail(mail, name):
@@ -41,11 +95,12 @@ def send_mail(mail, name):
         part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(name))
         msg.attach(part)
     server = smtplib.SMTP('smtp.gmail.com', 587)  # Создаем объект SMTP
-    server.set_debuglevel(True)  # Включаем режим отладки - если отчет не нужен, строку можно закомментировать
     server.starttls()  # Начинаем шифрованный обмен по TLS
     server.login(addr_from, password)  # Получаем доступ
     server.send_message(msg)  # Отправляем сообщение
     server.quit()  # Выходим
+    return True
+
 
 
 def is_zip(file):
