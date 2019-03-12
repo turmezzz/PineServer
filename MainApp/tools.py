@@ -151,7 +151,6 @@ def send_mail(mail, name):
     return True
 
 
-
 def is_zip(file):
     pattern = r'.+\.zip'
     match = re.fullmatch(pattern, file)
@@ -231,8 +230,6 @@ def processing(zip_file, objects_to_detect):
     detection_results = []
     for f in futures:
         detection_results.append(f.result())
-
-
 
     # out_zip = zipfile.ZipFile(out_zip + '')
 

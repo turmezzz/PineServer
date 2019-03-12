@@ -78,14 +78,13 @@ def home(request):
             else:
                 zips_folder_path = 'files/zips/'
                 email = request.user.email
-                time = tools.get_unique_title()
-                zip_file_name = email + '_' + time
-                zip_abs_path = zips_folder_path + email + '_' + time + '.zip'
+                title = tools.get_unique_title()
+                zip_file_name = email + '_' + title
+                zip_abs_path = zips_folder_path + email + '_' + title + '.zip'
                 fout = open(zip_abs_path, 'wb+')
                 for chunk in file.chunks():
                     fout.write(chunk)
                 fout.close()
-
                 ex = ThreadPoolExecutor(max_workers=1)
                 future = ex.submit(tools.processing, zip_file_name, objs_to_detect)
                 args['message'] = 'we will send you an email to {} with detection result'.format(email)
