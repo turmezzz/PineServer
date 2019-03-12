@@ -33,6 +33,9 @@
                         <li>
                             <a href="logout">Log out</a>
                         </li>
+                        <li>
+                            <a href="https://goo.gl/forms/i0EEb74DOywQRJj92">Запрос на добавление объекта</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -48,6 +51,18 @@
                         </h3>
                     </div>
                 </div>
+                <div>
+                    <h3>
+                        SELECT OBJS
+                    </h3>
+                    <div class="bg">
+                        {% for obj in detection_objects%}
+                            <div style="display: block; float: left;">
+                                <input type="checkbox" name="{{ obj }}">
+                                <label>{{ obj }}</label><br>
+                            </div>
+                        {% endfor %}
+                    </div>
                 <div>
                     <input type="submit" value="send" class="btn btn-info btn-block">    
                 </div>

@@ -41,6 +41,7 @@
 
 .submenu{
   display: block;
+  float: left;
 }
 
 .submenu li{

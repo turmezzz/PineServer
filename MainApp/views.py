@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from . import forms
 from . import tools
-
+from concurrent.futures import ThreadPoolExecutor
 
 
 def login(request):
@@ -56,9 +56,18 @@ def home(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    args = {'message': '', 'form': forms.ArchiveUploadForm}
+    args = {'message': '', 'form': forms.ArchiveUploadForm,
+            'detection_objects': tools.objs_labels()}
+
     if request.method == 'POST':
         form = forms.ArchiveUploadForm(request.POST, request.FILES)
+
+        objs_to_detect = []
+        labels = tools.objs_labels()
+        for key in request.POST.keys():
+            if key in labels:
+                objs_to_detect.append(key)
+
         if not form.is_valid(request.FILES.keys()):
             args['message'] = 'load zip archive'
         else:
@@ -70,13 +79,16 @@ def home(request):
             else:
                 zips_folder_path = 'files/zips/'
                 email = request.user.email
-                time = tools.get_unique_title()
-                zip_file_name = zips_folder_path + email + '_' + time + '.zip'
-                fout = open(zip_file_name, 'wb+')
+                title = tools.get_unique_title()
+                zip_file_name = email + '_' + title
+                zip_abs_path = zips_folder_path + email + '_' + title + '.zip'
+                fout = open(zip_abs_path, 'wb+')
                 for chunk in file.chunks():
                     fout.write(chunk)
                 fout.close()
-                return HttpResponse('We will send email')
+                ex = ThreadPoolExecutor(max_workers=1)
+                future = ex.submit(tools.processing, zip_file_name, objs_to_detect)
+                args['message'] = 'we will send you an email to {} with detection result'.format(email)
     return render(request, 'MainApp/home.html', args)
 
 
