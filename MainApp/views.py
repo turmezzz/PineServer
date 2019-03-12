@@ -63,9 +63,10 @@ def home(request):
         form = forms.ArchiveUploadForm(request.POST, request.FILES)
 
         objs_to_detect = []
+        labels = tools.objs_labels()
         for key in request.POST.keys():
-            if '%0D%0A' in key:
-                objs_to_detect.append(key[0:-6:])
+            if key in labels:
+                objs_to_detect.append(key)
 
         if not form.is_valid(request.FILES.keys()):
             args['message'] = 'load zip archive'

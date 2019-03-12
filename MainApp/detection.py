@@ -1,7 +1,7 @@
 import os
 import cv2
 import matplotlib.pyplot as plt
-# from darkflow.net.build import TFNet
+from darkflow.net.build import TFNet
 
 
 def draw_border_and_save(img, result, objs_to_detect):
@@ -17,20 +17,23 @@ def draw_border_and_save(img, result, objs_to_detect):
 
 
 def detection(i_img, i_path_and_name_to_save, i_objs_to_detect):
-    # result = tfnet.return_predict(i_img)
-    # img = draw_border_and_save(i_img, result, i_objs_to_detect)
-    # plt.imsave(i_path_and_name_to_save, img)
-    # print('saved')
-    # return result
-    return {}
+    result = tfnet.return_predict(i_img)
+    # result = [{
+    #             'bottomright': {'x': 636, 'y': 776},
+    #             'confidence': 0.28718543,
+    #             'label': 'person',
+    #             'topleft': {'x': 563, 'y': 281}}]
+    img = draw_border_and_save(i_img, result, i_objs_to_detect)
+    plt.imsave(i_path_and_name_to_save, img)
+    return result
 
 
-# options = {
-#     'model': os.path.abspath('.') + '/MainApp/cfg/yolo.cfg',
-#     'load': os.path.abspath('.') + '/MainApp/bin/yolo.weights',
-#     'config': os.path.abspath('.') + '/MainApp/cfg/',
-#     'threshold': 0.1
-# }
-# tfnet = TFNet(options)
+options = {
+    'model': os.path.abspath('.') + '/MainApp/cfg/yolo.cfg',
+    'load': os.path.abspath('.') + '/MainApp/bin/yolo.weights',
+    'config': os.path.abspath('.') + '/MainApp/cfg/',
+    'threshold': 0.5
+}
+tfnet = TFNet(options)
 
 
