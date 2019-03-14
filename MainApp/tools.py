@@ -7,8 +7,8 @@ import shutil
 import cv2
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor
-from . import detection
-from . import statistics
+from MainApp import detection
+from MainApp import statistics
 import smtplib
 from email.mime.multipart import MIMEMultipart      # Многокомпонентный объект
 from email.mime.text import MIMEText                # Текст/HTML
@@ -58,9 +58,13 @@ def is_zip(file):
 
 
 def is_image(file):
-    pattern = r'.+\.jpg'
-    match = re.fullmatch(pattern, file)
-    return True if match else False
+    patterns = [r'.+\.jpg', r'.+\.JPG', r'.+\.jpeg', r'.+\.JPEG', r'.+\.png', r'.+\.PNG']
+    for pattern in patterns:
+        match = re.fullmatch(pattern, file)
+        if match:
+            return True
+    else:
+        return False
 
 
 def get_unique_title():
@@ -108,12 +112,25 @@ def processing(zip_file, objects_to_detect):
     zip_ref.close()
 
     # moving files from extract folder to in folder
-    for i, file in enumerate(os.listdir(extract_folder)):
-        if is_image(file):
-            from_dir = extract_folder + file
-            to_dir = output_path + zip_file + '/in/img_{}.jpg'.format(str(i))
-            os.rename(from_dir, to_dir)
+    i = 0
+    for path, dirs, files in os.walk(extract_folder):
+        path += '/'
+        if '__MACOSX' in path:
+            continue
+        for file in files:
+            if is_image(file):
+                from_dir = path + file
+                to_dir = output_path + zip_file + '/in/img_{}.jpg'.format(str(i))
+                os.rename(from_dir, to_dir)
+                i += 1
     shutil.rmtree(extract_folder)
+
+    # for i, file in enumerate(os.listdir(extract_folder)):
+    #     if is_image(file):
+    #         from_dir = extract_folder + file
+    #         to_dir = output_path + zip_file + '/in/img_{}.jpg'.format(str(i))
+    #         os.rename(from_dir, to_dir)
+    # shutil.rmtree(extract_folder)
 
     # detecting object on imgs from in folder
     in_imgs_path = output_path + zip_file + '/in/'
