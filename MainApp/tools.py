@@ -125,13 +125,6 @@ def processing(zip_file, objects_to_detect):
                 i += 1
     shutil.rmtree(extract_folder)
 
-    # for i, file in enumerate(os.listdir(extract_folder)):
-    #     if is_image(file):
-    #         from_dir = extract_folder + file
-    #         to_dir = output_path + zip_file + '/in/img_{}.jpg'.format(str(i))
-    #         os.rename(from_dir, to_dir)
-    # shutil.rmtree(extract_folder)
-
     # detecting object on imgs from in folder
     in_imgs_path = output_path + zip_file + '/in/'
     out_imgs_path = output_path + zip_file + '/out/'

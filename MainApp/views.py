@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from . import forms
 from . import tools
 from concurrent.futures import ThreadPoolExecutor
+import zipfile
+import os
 
 
 def login(request):
@@ -74,20 +76,40 @@ def home(request):
             # process
             file = request.FILES['archive']
             file_name = str(file)
-            if not tools.is_zip(file_name):
-                args['message'] = 'it is not a zip file'
-            else:
+            is_zip = tools.is_zip(file_name)
+            is_image = tools.is_image(file_name)
+            if not is_zip and not is_image:
+                args['message'] = 'it is not a zip or a single image file'
+            elif is_zip:
                 zips_folder_path = 'files/zips/'
                 email = request.user.email
                 title = tools.get_unique_title()
                 zip_file_name = email + '_' + title
-                zip_abs_path = zips_folder_path + email + '_' + title + '.zip'
+                zip_abs_path = zips_folder_path + zip_file_name + '.zip'
                 fout = open(zip_abs_path, 'wb+')
                 for chunk in file.chunks():
                     fout.write(chunk)
                 fout.close()
                 ex = ThreadPoolExecutor(max_workers=1)
                 future = ex.submit(tools.processing, zip_file_name, objs_to_detect)
+                args['message'] = 'we will send you an email to {} with detection result'.format(email)
+            elif is_image:
+                zips_folder_path = 'files/zips/'
+                email = request.user.email
+                title = tools.get_unique_title()
+                img_file_name = email + '_' + title
+                img_abs_path = zips_folder_path + img_file_name + '.jpg'
+                fout = open(img_abs_path, 'wb+')
+                for chunk in file.chunks():
+                    fout.write(chunk)
+                fout.close()
+                zip_abs_path = zips_folder_path + img_file_name + '.zip'
+                zip_ref = zipfile.ZipFile(zip_abs_path, 'w')
+                zip_ref.write(img_abs_path, file_name)
+                zip_ref.close()
+                os.remove(img_abs_path)
+                ex = ThreadPoolExecutor(max_workers=1)
+                future = ex.submit(tools.processing, img_file_name, objs_to_detect)
                 args['message'] = 'we will send you an email to {} with detection result'.format(email)
     return render(request, 'MainApp/home.html', args)
 
