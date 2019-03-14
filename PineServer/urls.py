@@ -8,3 +8,4 @@ urlpatterns = [
     url(r'admin/', admin.site.urls),
     url(r'^', include('MainApp.urls'))
 ]
+urlpatterns += static('../MainApp/files/zips', document_root=os.path.join(settings.BASE_DIR, 'reports'))
