@@ -64,7 +64,6 @@ def home(request):
 
     if request.method == 'POST':
         form = forms.ArchiveUploadForm(request.POST, request.FILES)
-
         objs_to_detect = []
         labels = tools.objs_labels()
         for key in request.POST.keys():
@@ -92,7 +91,7 @@ def home(request):
                     fout.write(chunk)
                 fout.close()
                 ex = ThreadPoolExecutor(max_workers=1)
-                future = ex.submit(tools.processing, zip_file_name, objs_to_detect)
+                future = ex.submit(tools.processing, zip_file_name, objs_to_detect, email)
                 args['message'] = 'we will send you an email to {} with detection result'.format(email)
             elif is_image:
                 zips_folder_path = 'files/zips/'
@@ -110,7 +109,7 @@ def home(request):
                 zip_ref.close()
                 os.remove(img_abs_path)
                 ex = ThreadPoolExecutor(max_workers=1)
-                future = ex.submit(tools.processing, img_file_name, objs_to_detect)
+                future = ex.submit(tools.processing, img_file_name, objs_to_detect, email)
                 args['message'] = 'we will send you an email to {} with detection result'.format(email)
     return render(request, 'MainApp/home.html', args)
 
