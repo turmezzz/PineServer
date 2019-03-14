@@ -18,21 +18,19 @@ import collections
 import pandas as pd
 
 
-def send_mail(mail):
+def send_mail(mail, subject, text, linq=''):
     addr_from = "messageFromPine@gmail.com"  # Адресат
     addr_to = mail                           # Получатель
     password = "DanilaGay6969"               # Пароль
     msg = MIMEMultipart()  # Создаем сообщение
     msg['From'] = addr_from  # Адресат
     msg['To'] = addr_to  # Получатель
-    msg['Subject'] = 'Look at this dude'  # Тема сообщения
+    msg['Subject'] = subject  # Тема сообщения
 
     # zip_data = open(name, 'rb').read()
     # if not os.path.isfile(name):
     #     raise Exception('File do not exist!')
-    body = '''
-    Вам пришла статистика!
-    '''
+    body = text.format(linq)
     body_part = MIMEText(body, 'plain')
     msg.attach(body_part)
     # with open(name, "rb") as attachment:
@@ -138,6 +136,7 @@ def processing(zip_file, objects_to_detect, email):
         futures.append(ex.submit(detection.detection, img, out_imgs_path + file, objects_to_detect))
     while not all_threads_done(futures):
         pass
+
     detection_results = []
     for f in futures:
         detection_results.append(f.result())
