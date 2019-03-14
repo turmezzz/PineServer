@@ -88,7 +88,7 @@ def all_threads_done(futures):
 
 def processing(zip_file, objects_to_detect, email):
 
-    # send_mail(email, 'Pine received images.', 'We have received your images. They are processing right now!')
+    send_mail(email, 'Pine received images.', 'We have received your images. They are processing right now!')
     # send_mail(email, 'shit name')
 
     output_path = 'files/output/'
