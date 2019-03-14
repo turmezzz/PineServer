@@ -49,7 +49,6 @@ def send_mail(mail):
     server.quit()  # Выходим
     return True
 
-send_mail('tzmakoev@edu.hse.ru')
 
 def is_zip(file):
     pattern = r'.+\.zip'
