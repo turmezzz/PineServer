@@ -1,7 +1,7 @@
 import collections
 import pandas as pd
 import numpy as np
-from . import tools
+from MainApp import tools
 
 
 def max_metric(logs: '[[{},{}...]...]', path):

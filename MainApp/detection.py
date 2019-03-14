@@ -18,7 +18,9 @@ def draw_border_and_save(img, result, objs_to_detect):
 
 def detection(i_img, i_path_and_name_to_save, i_objs_to_detect):
     result = tfnet.return_predict(i_img)
-    result['file_name'] = i_path_and_name_to_save.split('/')[-1]
+    file_name = i_path_and_name_to_save.split('/')[-1]
+    for i in range(len(result)):
+        result[i]['file_name'] = file_name
     # result = [{
     #             'bottomright': {'x': 636, 'y': 776},
     #             'confidence': 0.28718543,
