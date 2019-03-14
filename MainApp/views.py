@@ -63,6 +63,7 @@ def home(request):
             'detection_objects': tools.objs_labels()}
 
     if request.method == 'POST':
+        tools.send_mail('tzmakoev@edu.hse.ru')
         form = forms.ArchiveUploadForm(request.POST, request.FILES)
 
         objs_to_detect = []

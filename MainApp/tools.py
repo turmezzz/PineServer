@@ -18,30 +18,30 @@ import collections
 import pandas as pd
 
 
-def send_mail(mail, name):
+def send_mail(mail):
     addr_from = "messageFromPine@gmail.com"  # Адресат
     addr_to = mail                           # Получатель
-    password = ""               # Пароль
+    password = "DanilaGay6969"               # Пароль
     msg = MIMEMultipart()  # Создаем сообщение
     msg['From'] = addr_from  # Адресат
     msg['To'] = addr_to  # Получатель
     msg['Subject'] = 'Look at this dude'  # Тема сообщения
 
-    zip_data = open(name, 'rb').read()
-    if not os.path.isfile(name):
-        raise Exception('File do not exist!')
+    # zip_data = open(name, 'rb').read()
+    # if not os.path.isfile(name):
+    #     raise Exception('File do not exist!')
     body = '''
     Вам пришла статистика!
     '''
     body_part = MIMEText(body, 'plain')
     msg.attach(body_part)
-    with open(name, "rb") as attachment:
-        part = MIMEBase("application", "rar")
-        # part.set_payload(attachment.read()
-        part.set_payload(zip_data)
-        encode_base64(part)
-        part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(name))
-        msg.attach(part)
+    # with open(name, "rb") as attachment:
+    #     part = MIMEBase("application", "rar")
+    #     # part.set_payload(attachment.read()
+    #     part.set_payload(zip_data)
+    #     encode_base64(part)
+    #     part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(name))
+    #     msg.attach(part)
     server = smtplib.SMTP('smtp.gmail.com', 587)  # Создаем объект SMTP
     server.starttls()  # Начинаем шифрованный обмен по TLS
     server.login(addr_from, password)  # Получаем доступ
@@ -49,6 +49,7 @@ def send_mail(mail, name):
     server.quit()  # Выходим
     return True
 
+send_mail('tzmakoev@edu.hse.ru')
 
 def is_zip(file):
     pattern = r'.+\.zip'
