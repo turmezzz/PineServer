@@ -89,7 +89,11 @@ def all_threads_done(futures):
         return True
 
 
-def processing(zip_file, objects_to_detect):
+def processing(zip_file, objects_to_detect, email):
+
+    # send_mail(email, 'Pine received images.', 'We have received your images. They are processing right now!')
+    # send_mail(email, 'shit name')
+
     output_path = 'files/output/'
     zips_path = 'files/zips/'
     pwd = os.path.abspath('.')
@@ -133,14 +137,14 @@ def processing(zip_file, objects_to_detect):
     for file in os.listdir(in_imgs_path):
         img = cv2.cvtColor(np.asarray(cv2.imread(in_imgs_path + file), dtype='uint8'), cv2.COLOR_BGR2RGB)
         futures.append(ex.submit(detection.detection, img, out_imgs_path + file, objects_to_detect))
-
     while not all_threads_done(futures):
         pass
-
     detection_results = []
     for f in futures:
         detection_results.append(f.result())
     statistics.max_metric(detection_results, out_imgs_path + 'max_metric.csv')
+    statistics.all_metric(detection_results, out_imgs_path + 'all_metrics.csv', objects_to_detect)
+    statistics.median_metric(detection_results, out_imgs_path + 'median_metrics.csv')
 
 
 

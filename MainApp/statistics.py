@@ -125,6 +125,7 @@ def median_metric(logs: '[[{},{}...]...]', path):
     except Exception():
         print('WRONG FORMAT')
 
+
 def gen_median_metric(counts: '[(),()...]', path):
     arr = []
     for ch in counts:
