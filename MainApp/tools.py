@@ -31,8 +31,7 @@ def send_mail(mail, name):
     if not os.path.isfile(name):
         raise Exception('File do not exist!')
     body = '''
-    A-a-у(тип звук из аськи) пришла статистика!
-    Олды тут !?!?!
+    Вам пришла статистика!
     '''
     body_part = MIMEText(body, 'plain')
     msg.attach(body_part)

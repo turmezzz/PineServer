@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import auth
 from django.contrib.auth.models import User
-from . import forms
-from . import tools
+from MainApp import forms
+from MainApp import tools
+from MainApp.tools import send_mail
 from concurrent.futures import ThreadPoolExecutor
 import zipfile
 import os
