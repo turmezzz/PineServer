@@ -59,8 +59,15 @@ def home(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
+    box = tools.objs_labels()
+    groups_of_labels = [[]]
+    for i, label in enumerate(box):
+        if i % 5 == 0:
+            groups_of_labels.append([])
+        groups_of_labels[-1].append(label)
+
     args = {'message': '', 'form': forms.ArchiveUploadForm,
-            'detection_objects': tools.objs_labels()}
+            'detection_objects': groups_of_labels}
 
     if request.method == 'POST':
         form = forms.ArchiveUploadForm(request.POST, request.FILES)
@@ -123,6 +130,13 @@ def logout(request):
 def info(request):
     return render(request, 'MainApp/info.html')
 
+
+def about(request):
+    return render(request, 'MainApp/about.html')
+
+
+def contact(request):
+    return render(request, 'MainApp/contact.html')
 
 
 

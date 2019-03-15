@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Pine - load zip</title>
+        <title>Pine - Load zip</title>
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -31,17 +31,16 @@
                 <nav>
                     <ul class = "submenu">
                         <li>
-                            <a href="logout">Log out</a>
-                        </li>
-                        <li>
-                            <a href="https://goo.gl/forms/i0EEb74DOywQRJj92">Запрос на добавление объекта</a>
-                        </li>
+                            <a href="logout" style="font-size: 20px;">Log out</a>
+                        </li>                        
                     </ul>
                 </nav>
             </div>
         </nav>
-
-        <div class="container" style="margin-top: 15%">
+        <a href="https://goo.gl/forms/i0EEb74DOywQRJj92">
+        <button class="btn" id = "Add" >Add object</button>
+        </a>
+        <div class="container" style="margin-top: 10%">
             <form action="home" method="POST" enctype="multipart/form-data"> {% csrf_token %}
                 <div class="zip-upload-wrap">
                     <input class="file-upload-input" type="file" name="archive" accept="multipart/x-zip">
@@ -51,25 +50,57 @@
                         </h3>
                     </div>
                 </div>
-                <div>
+                <div class = "select">
                     <h3>
-                        SELECT OBJS
+                        SELECT OBJECTS
                     </h3>
                     <div class="bg">
-                        {% for obj in detection_objects%}
-                            <div style="display: block; float: left;">
-                                <input type="checkbox" name="{{ obj }}">
-                                <label>{{ obj }}</label><br>
-                            </div>
-                        {% endfor %}
+                        <table id = "Table">
+                            <tr>
+                                <th style=" width : 1000px; font-size: 20px; color: grey; padding-bottom: 1%;">  
+                                    <input id = "all" type="checkbox" name="Choose All" > 
+                                    <span>
+                                        Choose All
+                                    </span>
+                                </th>
+                            </tr>
+                            {% for box in detection_objects %}
+                            <tr>
+                                {% for label in box %}    
+                                    <th style=" width : 1000px; font-size: 20px; color: grey"> 
+                                        <input class = "tocheck" type="checkbox" name="{{ label }}" > 
+                                        <span>
+                                            <label> 
+                                                {{ label }}
+                                            </label>
+                                        </span>
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <style>
+                            input:checked + span  {
+                                color:black;
+                            }
+                        </style>
+                        <script type="text/javascript">
+                            $("#all").click(function () {
+                            $(".tocheck").prop('checked', $(this).prop('checked'));
+                            });
+                        </script>
                     </div>
-                <div>
-                    <input type="submit" value="send" class="btn btn-info btn-block">    
-                </div>
+                    <div class = "send">
+                        <input type="submit" value="Send" style="font-size: 20px;" class="btn btn-info btn-block">    
+                    </div>
+                 </div>
             </form> 
             <div class="message">   
                 {{ message }}
             </div>
         </div>
     </body>
+    <style type="text/css">
+    
+    </style>
 </html>

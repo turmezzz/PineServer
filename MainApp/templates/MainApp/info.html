@@ -2,28 +2,218 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>About</title>
+        <title>Pine - info</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/info_style.css' %}"/>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
+    </style>
     <body>
-        <nav class="navbar navbar-expand-sm bg-primary">
+        <nav class="navbar navbar bg-primary">
             <div class="col-2">
                 <ul class="navbar-nav">
                     <li>
-                        <h1 class="text-white">Pine</h1>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-9"></div>
-            <div class="col-1">
-                <ul class="navbar-nav">
-                    <li>
-                        <a href="logout" class="text-light">выйти</a>
+                        <a href="login" class="logo_link">
+                            <h1 class="text-light">Pine</h1>    
+                        </a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <h1>
-            ABOUT US
-        </h1>>
+        <section class = "Main">
+            <div class = "Name">
+                P I N E
+            </div>
+            <div class='ForWhat'>
+                <span id='text'></span>
+                <div class='console-underscore' id='console'>&#95;</div>
+            </div>
+            <script type="text/javascript">
+                consoleText(['Image content analysis portal.', 'Fast and Ergonomic.', 'Made with Love.'], 'text',['grey','rebeccapurple','lightblue']);
+
+                function consoleText(words, id, colors) {
+                  if (colors === undefined) colors = ['#fff'];
+                  var visible = true;
+                  var con = document.getElementById('console');
+                  var letterCount = 1;
+                  var x = 1;
+                  var waiting = false;
+                  var target = document.getElementById(id)
+                  target.setAttribute('style', 'color:' + colors[0])
+                  window.setInterval(function() {
+                    if (letterCount === 0 && waiting === false) {
+                      waiting = true;
+                      target.innerHTML = words[0].substring(0, letterCount)
+                      window.setTimeout(function() {
+                        var usedColor = colors.shift();
+                        colors.push(usedColor);
+                        var usedWord = words.shift();
+                        words.push(usedWord);
+                        x = 1;
+                        target.setAttribute('style', 'color:' + colors[0])
+                        letterCount += x;
+                        waiting = false;
+                      }, 600)
+                    } else if (letterCount === words[0].length + 1 && waiting === false) {
+                      waiting = true;
+                      window.setTimeout(function() {
+                        x = -1;
+                        letterCount += x;
+                        waiting = false;
+                      }, 600)
+                    } else if (waiting === false) {
+                      target.innerHTML = words[0].substring(0, letterCount)
+                      letterCount += x;
+                    }
+                  }, 90)
+                  window.setInterval(function() {
+                    if (visible === true) {
+                      con.className = 'console-underscore hidden'
+                      visible = false;
+
+                    } else {
+                      con.className = 'console-underscore'
+
+                      visible = true;
+                    }
+                  }, 400)
+                }
+            </script>
+            <div class = "Button" >
+                <a href="login">
+                    <button>
+                      Start
+                    </button>
+                </a>
+            </div>
+        </section>
+        <section class = "Main Second">
+            <div class = "Paragr">
+                <h1 class = "Head">
+                    Enjoy<br>
+                    Fast image recognition
+                </h1>
+                <p>   
+                    Every aspect of Pine<br>
+                    is specifically designed to<br> 
+                    maximize recognition productivity.<br>
+                    Together, the powerful<br>
+                    static code analysis and<br>
+                    ergonomic design make<br>
+                    work not only productive<br>
+                    but also an enjoyable experience.<br>
+                </p>
+            </div>
+            <div class = "Button2" >
+                <a href="login">
+                    <button>
+                      Small Tour
+                    </button>
+                </a>
+            </div>
+            <img id = "firstimg" src="{% static 'image/info1.png' %}">
+        </section>
+        <section class = "Main Third">
+            <div class = "Paragr2">
+                <h4 class = "Head2">
+                    Ten-point recognition
+                </h4>
+                <p>   
+                    After you load archive<br>
+                    with photos neural network<br> 
+                    the neural network will begin<br>
+                    to recognize ten photos at<br>
+                    a time. After sending statistics<br>
+                    and fluorography with selected<br>
+                    objects by mail<br>
+                </p>
+            </div>
+            <div class = "Paragr2">
+                <h4 class = "Head2">
+                    Four different statstics
+                </h4>
+                <p>   
+                    You will recieve four<br>
+                    different statistics.<br> 
+                    Xxxxxxxxxxxxxxxxxxxxx<br>
+                    xxxxxxxxxxxxxxxxxxxxt<br>
+                    xxxxxxxxxxxxxxxxxxxx<br>
+                    xxxxxxxxxxxxxxxxxxxx<br>
+                    xxxxxxxxxxxxxxxxxxxx<br>
+                </p>
+            </div>
+                <div class="accordian">
+                    <ul>
+                        <li>
+                            <div class="image_title">
+                                <a href="https://pp.userapi.com/c846220/v846220488/18d978/tOL3kZMjFZM.jpg">KungFu Panda</a>
+                            </div> 
+                            <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">
+                                <img src="http://thecodeplayer.com/uploads/media/3yiC6Yq.jpg"/>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="image_title">
+                                <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">Toy Story 2</a>
+                            </div>
+                            <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">
+                                <img src="http://thecodeplayer.com/uploads/media/40Ly3VB.jpg"/>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="image_title">
+                                <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">Wall-E</a>
+                            </div>
+                            <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">
+                                <img src="http://thecodeplayer.com/uploads/media/00kih8g.jpg"/>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="image_title">
+                                <a href="#">Up</a>
+                            </div>
+                            <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">
+                                <img src="http://thecodeplayer.com/uploads/media/2rT2vdx.jpg"/>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="image_title">
+                                <a href="#">Cars 2</a>
+                            </div>
+                            <a href="https://www.youtube.com/channel/UCXTfDJ60DBmA932Du6B1ydg">
+                                <img src="http://thecodeplayer.com/uploads/media/8k3N3EL.jpg"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </section>
+        <section class = "Main Fourth">
+            <div class = "Paragr3 ">
+                <h4 class = "Head2 ">
+                    Four different statstics
+                </h4>
+                <p class = "Toleft">   
+                    You will recieve four<br>
+                    different statistics.<br> 
+                    Xxxxxxxxxxxxxxxxxxxxx<br>
+                    xxxxxxxxxxxxxxxxxxxxt<br>
+                    xxxxxxxxxxxxxxxxxxxx<br>
+                    xxxxxxxxxxxxxxxxxxxx<br>
+                    xxxxxxxxxxxxxxxxxxxx<br>
+                </p>
+            </div>
+        </section>
     </body>
 </html>

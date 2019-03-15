@@ -10,25 +10,25 @@
 }
 
 .zip-upload-wrap {
-  margin-top: 20px;
-  border: 4px dashed #1579f6;
+  border: 12px dashed #1579f6;
   position: relative;
+  margin-left: 12%;
+  margin-right: 10%;
+  color: #1579f6;
 }
 
 .zip-upload-wrap:hover {
-  border: 4px dashed red;
+  border: 12px dashed green;
+  color: green;
 }
-
 .zip-title-wrap {
-  padding: 0 15px 15px 15px;
   color: #222;
 }
 
 .drag-text h3{
   text-align: center;
-  font-weight: 100;
+  font-weight: 1000;
   text-transform: uppercase;
-  color: #1579f6;
   padding: 60px 0;
 }
 
@@ -66,6 +66,32 @@
 
 .message{
   color: red;
+  font-size: 20px;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 1%;
+}
+.links{
+  margin-top: 15px;
+}
+.select h3{
+  text-align: center;
+  margin-top: 7%;
+  color: #1579f6;
+}
+.bg{
+  margin-top: 3%;
+  margin-left: 7%;
+}
+.send{
+  margin-top: 3%;
+}
+#Add{
+  float: right;
+  margin-right: 5%;
+  margin-top: 3%;
+  background-color: #1579f6;
+  color: white;
+}
+#Add:hover{
+  background-color: green;
 }
