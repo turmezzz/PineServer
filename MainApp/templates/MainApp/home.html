@@ -31,6 +31,9 @@
                 <nav>
                     <ul class = "submenu">
                         <li>
+                            <a href="info" style="font-size: 20px;">Info</a>
+                        </li> 
+                        <li>
                             <a href="logout" style="font-size: 20px;">Log out</a>
                         </li>                        
                     </ul>
@@ -54,6 +57,9 @@
                     <h3>
                         SELECT OBJECTS
                     </h3>
+                    <div class="message">   
+                        {{ message }}
+                    </div>
                     <div class="bg">
                         <table id = "Table">
                             <tr>
@@ -95,9 +101,6 @@
                     </div>
                  </div>
             </form> 
-            <div class="message">   
-                {{ message }}
-            </div>
         </div>
     </body>
     <style type="text/css">
