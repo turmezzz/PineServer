@@ -10,15 +10,15 @@ from concurrent.futures import ThreadPoolExecutor
 from MainApp import detection
 from MainApp import statistics
 import smtplib
-from email.mime.multipart import MIMEMultipart      # Многокомпонентный объект
-from email.mime.text import MIMEText                # Текст/HTML
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.encoders import encode_base64
 import collections
 import pandas as pd
 
 
-def send_mail(mail, subject, text, linq=''):
+def send_mail(mail, subject, text, link=''):
     addr_from = "messageFromPine@gmail.com"  # Адресат
     addr_to = mail                           # Получатель
     password = "DanilaGay6969"               # Пароль
@@ -27,25 +27,15 @@ def send_mail(mail, subject, text, linq=''):
     msg['To'] = addr_to  # Получатель
     msg['Subject'] = subject  # Тема сообщения
 
-    # zip_data = open(name, 'rb').read()
-    # if not os.path.isfile(name):
-    #     raise Exception('File do not exist!')
-    body = text.format(linq)
+    body = text.format(link)
     body_part = MIMEText(body, 'plain')
     msg.attach(body_part)
-    # with open(name, "rb") as attachment:
-    #     part = MIMEBase("application", "rar")
-    #     # part.set_payload(attachment.read()
-    #     part.set_payload(zip_data)
-    #     encode_base64(part)
-    #     part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(name))
-    #     msg.attach(part)
+
     server = smtplib.SMTP('smtp.gmail.com', 587)  # Создаем объект SMTP
     server.starttls()  # Начинаем шифрованный обмен по TLS
     server.login(addr_from, password)  # Получаем доступ
     server.send_message(msg)  # Отправляем сообщение
     server.quit()  # Выходим
-    return True
 
 
 def is_zip(file):
@@ -143,6 +133,14 @@ def processing(zip_file, objects_to_detect, email):
     statistics.max_metric(detection_results, out_imgs_path + 'max_metric.csv')
     statistics.all_metric(detection_results, out_imgs_path + 'all_metrics.csv', objects_to_detect)
     statistics.median_metric(detection_results, out_imgs_path + 'median_metrics.csv')
+
+    files_to_zip = os.listdir('{}/{}/out/'.format(output_path, zip_file))
+    out_zip_file = '{}/{}/out/out.zip'.format(output_path, zip_file)
+    zip_ref = zipfile.ZipFile(out_zip_file, 'w')
+    # for file in files_to_zip:
+    #     zip_ref.write( file)
+
+
 
 
 
