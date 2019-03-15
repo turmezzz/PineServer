@@ -141,7 +141,6 @@ def processing(zip_file, objects_to_detect, email):
     for file in files_to_zip:
         zip_ref.write(out_user_path + file, file)
     zip_ref.close()
-    print(zip_file)
     domain = '127.0.0.1:8000/'
     link = 'http://{}download_{}'.format(domain, zip_file)
     send_mail(email,
@@ -149,7 +148,7 @@ def processing(zip_file, objects_to_detect, email):
               '''We have processed your pics.
               You can download images and metrics at {}.''',
               link)
-    print(link)
+
 
 
 

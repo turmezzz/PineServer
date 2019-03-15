@@ -142,11 +142,11 @@ def download(request):
     if str(request.user) != str(user):
         return render(request, 'MainApp/home.html', args)
     out_zip = 'files/output/{}/out/out.zip'.format(user_out_path)
-    print(out_zip)
-    print(os.path.exists(out_zip))
+    time_mark = user_out_path.split('_')[-1]
     with open(out_zip, 'rb') as f:
-        return HttpResponse(f.read(), content_type="application/x-zip-compressed")
-    # return HttpResponse("hi")
+        response = HttpResponse(f.read(), content_type="application/x-zip-compressed")
+        response['Content-Disposition'] = 'filename=\"{}_out.zip\"'.format(time_mark)
+        return response
 
 
 def logout(request):
