@@ -56,6 +56,7 @@ def signup(request):
 
 
 def home(request):
+
     if not request.user.is_authenticated:
         return redirect('login')
 
@@ -119,6 +120,33 @@ def home(request):
                 future = ex.submit(tools.processing, img_file_name, objs_to_detect, email)
                 args['message'] = 'we will send you an email to {} with detection result'.format(email)
     return render(request, 'MainApp/home.html', args)
+
+
+def download(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    box = tools.objs_labels()
+    groups_of_labels = [[]]
+    for i, label in enumerate(box):
+        if i % 5 == 0:
+            groups_of_labels.append([])
+        groups_of_labels[-1].append(label)
+
+    args = {'message': 'Sorry, this is link is not for your :(', 'form': forms.ArchiveUploadForm,
+            'detection_objects': groups_of_labels}
+
+    abs_url = str(request.build_absolute_uri())
+    user_out_path = abs_url.split('download_')[-1]
+    user = user_out_path.split('_')[0]
+    if str(request.user) != str(user):
+        return render(request, 'MainApp/home.html', args)
+    out_zip = 'files/output/{}/out/out.zip'.format(user_out_path)
+    print(out_zip)
+    print(os.path.exists(out_zip))
+    with open(out_zip, 'rb') as f:
+        return HttpResponse(f.read(), content_type="application/x-zip-compressed")
+    # return HttpResponse("hi")
 
 
 def logout(request):

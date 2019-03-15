@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^logout', views.logout, name='logout'),
     url(r'^info', views.info, name='info'),
     url(r'^about', views.about, name='about'),
-    url(r'^contact', views.contact, name='contact')
+    url(r'^contact', views.contact, name='contact'),
+    url(r'^download_.+', views.download, name='download')
 ]
 
