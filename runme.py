@@ -14,5 +14,5 @@ if not os.path.exists('bin'):
     os.system('wget https://pjreddie.com/media/files/yolov2.weights')
     os.rename('yolov2.weights', 'yolo.weights')
 os.chdir('..')
-os.system('pip install -e .')
+os.system('pip3 install -e .')
 os.system('')
