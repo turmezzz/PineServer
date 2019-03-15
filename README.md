@@ -6,4 +6,4 @@ Get all stuff from requirements.txt file.
 Run runme.py file to download weights file.
 
 Then work with Pine like with simple Django project. 
-Make migrations and use app.
+Make migrations with "python3 manage.py migrate" and use app.
