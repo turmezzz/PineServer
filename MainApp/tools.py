@@ -1,4 +1,3 @@
-import sys
 import re
 import time
 import os
@@ -12,16 +11,12 @@ from MainApp import statistics
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email.encoders import encode_base64
-import collections
-import pandas as pd
 
 
 def send_mail(mail, subject, text, link=''):
     addr_from = "messageFromPine@gmail.com"  # Адресат
     addr_to = mail                           # Получатель
-    password = "DanilaGay6969"               # Пароль
+    password = "Russia_pobeda"               # Пароль
     msg = MIMEMultipart()  # Создаем сообщение
     msg['From'] = addr_from  # Адресат
     msg['To'] = addr_to  # Получатель
@@ -136,19 +131,19 @@ def processing(zip_file, objects_to_detect, email):
     statistics.all_metric(detection_results, out_user_path + 'all_metrics.csv', objects_to_detect)
     statistics.median_metric(detection_results, out_user_path + 'median_metrics.csv')
 
-    # files_to_zip = os.listdir('{}/{}/out/'.format(output_path, zip_file))
-    # out_zip_file = '{}/{}/out/out.zip'.format(output_path, zip_file)
-    # zip_ref = zipfile.ZipFile(out_zip_file, 'w')
-    # for file in files_to_zip:
-    #     zip_ref.write(out_user_path + file, file)
-    # zip_ref.close()
-    # domain = '127.0.0.1:8000/'
-    # link = 'http://{}download_{}'.format(domain, zip_file)
-    # send_mail(email,
-    #           'Pine detected your images.',
-    #           '''We have processed your pics.
-    #           You can download images and metrics at {}.''',
-    #           link)
+    files_to_zip = os.listdir('{}/{}/out/'.format(output_path, zip_file))
+    out_zip_file = '{}/{}/out/out.zip'.format(output_path, zip_file)
+    zip_ref = zipfile.ZipFile(out_zip_file, 'w')
+    for file in files_to_zip:
+        zip_ref.write(out_user_path + file, file)
+    zip_ref.close()
+    domain = '127.0.0.1:8000/'
+    link = 'http://{}download_{}'.format(domain, zip_file)
+    send_mail(email,
+              'Pine detected your images.',
+              '''We have processed your pics.
+              You can download images and metrics at {}''',
+              link)
 
 
 

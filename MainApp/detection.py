@@ -1,7 +1,6 @@
 import os
 import cv2
-import matplotlib.pyplot as plt
-# from darkflow.net.build import TFNet
+from darkflow.net.build import TFNet
 
 
 def draw_border_and_save(img, result, objs_to_detect):
@@ -17,18 +16,18 @@ def draw_border_and_save(img, result, objs_to_detect):
 
 
 def detection(i_img, i_path_and_name_to_save, i_objs_to_detect):
-    # result = tfnet.return_predict(i_img)
-    # file_name = i_path_and_name_to_save.split('/')[-1]
-    # for i in range(len(result)):
-    #     result[i]['file_name'] = file_name
-    result = [{
-                'bottomright': {'x': 636, 'y': 776},
-                'confidence': 0.28718543,
-                'label': 'person',
-                'topleft': {'x': 563, 'y': 281},
-                'file_name': 'img_0.jpg'}]
+    result = tfnet.return_predict(i_img)
+    file_name = i_path_and_name_to_save.split('/')[-1]
+    for i in range(len(result)):
+        result[i]['file_name'] = file_name
+    # result = [{
+    #             'bottomright': {'x': 636, 'y': 776},
+    #             'confidence': 0.28718543,
+    #             'label': 'person',
+    #             'topleft': {'x': 563, 'y': 281},
+    #             'file_name': 'img_0.jpg'}]
     img = draw_border_and_save(i_img, result, i_objs_to_detect)
-    plt.imsave(i_path_and_name_to_save, img)
+    cv2.imwrite(i_path_and_name_to_save, cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     return result
 
 
@@ -38,6 +37,6 @@ options = {
     'config': os.path.abspath('.') + '/MainApp/cfg/',
     'threshold': 0.5
 }
-# tfnet = TFNet(options)
+tfnet = TFNet(options)
 
 

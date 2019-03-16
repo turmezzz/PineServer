@@ -4,7 +4,6 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from MainApp import forms
 from MainApp import tools
-from MainApp.tools import send_mail
 from concurrent.futures import ThreadPoolExecutor
 import zipfile
 import os

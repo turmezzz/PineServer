@@ -41,62 +41,6 @@ def all_metric(logs: '[[{},{}...]...]', path, names):
         print('WRONG FORMAT')
 
 
-# log = [[{'bottomright': {'x': 602, 'y': 585},
-#   'confidence': 0.38619694,
-#   'label': 'person',
-#   'topleft': {'x': 455, 'y': 334},
-#   'file_name': 'blabla'},
-#  {'bottomright': {'x': 636, 'y': 776},
-#   'confidence': 0.28718543,
-#   'label': 'person',
-#   'topleft': {'x': 563, 'y': 281},
-#   'file_name': 'blabla'},
-#  {'bottomright': {'x': 623, 'y': 959},
-#   'confidence': 0.8782011,
-#   'label': 'person',
-#   'topleft': {'x': 0, 'y': 207},
-#   'file_name': 'blabla'},
-#  {'bottomright': {'x': 631, 'y': 959},
-#   'confidence': 0.82520235,
-#   'label': 'person',
-#   'topleft': {'x': 476, 'y': 295},
-#   'file_name': 'blabla'},
-#  {'bottomright': {'x': 225, 'y': 881},
-#   'confidence': 0.11298049,
-#   'label': 'chair',
-#   'topleft': {'x': 4, 'y': 387},
-#   'file_name': 'blabla'}],
-#   [{'bottomright': {'x': 602, 'y': 585},
-#   'confidence': 0.38619694,
-#   'label': 'person',
-#   'topleft': {'x': 455, 'y': 334},
-#   'file_name': 'blabla1'},
-#  {'bottomright': {'x': 636, 'y': 776},
-#   'confidence': 0.28718543,
-#   'label': 'person',
-#   'topleft': {'x': 563, 'y': 281},
-#   'file_name': 'blabla1'},
-#  {'bottomright': {'x': 623, 'y': 959},
-#   'confidence': 0.8782011,
-#   'label': 'person',
-#   'topleft': {'x': 0, 'y': 207},
-#   'file_name': 'blabla1'},
-#  {'bottomright': {'x': 631, 'y': 959},
-#   'confidence': 0.82520235,
-#   'label': 'person',
-#   'topleft': {'x': 476, 'y': 295},
-#   'file_name': 'blabla1'},
-#  {'bottomright': {'x': 225, 'y': 881},
-#   'confidence': 0.11298049,
-#   'label': 'chair',
-#   'topleft': {'x': 4, 'y': 387},
-#   'file_name': 'blabla1'}]]
-#
-# all_metric(log,'all.csv',['person', 'chair'])
-# a = {'a':{'a':1, 'b':2}}
-# print(a['a'])
-
-
 def gen_max_metric(counts: '[(),()...]', path):
     arr = []
     for i, count in enumerate(counts):
@@ -129,7 +73,7 @@ def median_metric(logs: '[[{},{}...]...]', path):
 def gen_median_metric(counts: '[(),()...]', path):
     arr = []
     for ch in counts:
-        counts[ch][1] = counts[ch][1] / counts[ch][0] # *counts[ch][0]
+        counts[ch][1] = counts[ch][1] / counts[ch][0]
         arr.extend(counts[ch])
     arr = np.array(arr).reshape(-1, 2)
     df = pd.DataFrame(arr, index=counts.keys(), columns=['count', 'per'])
