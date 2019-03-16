@@ -77,7 +77,6 @@ def all_threads_done(futures):
 
 
 def processing(zip_file, objects_to_detect, email):
-
     send_mail(email,
               'Pine received images.',
               'We have received your images. They are processing right now!')
@@ -125,30 +124,31 @@ def processing(zip_file, objects_to_detect, email):
     for file in os.listdir(in_user_path):
         img = cv2.cvtColor(np.asarray(cv2.imread(in_user_path + file), dtype='uint8'), cv2.COLOR_BGR2RGB)
         futures.append(ex.submit(detection.detection, img, out_user_path + file, objects_to_detect))
+
     while not all_threads_done(futures):
         pass
 
     detection_results = []
     for f in futures:
         detection_results.append(f.result())
+
     statistics.max_metric(detection_results, out_user_path + 'max_metric.csv')
     statistics.all_metric(detection_results, out_user_path + 'all_metrics.csv', objects_to_detect)
     statistics.median_metric(detection_results, out_user_path + 'median_metrics.csv')
 
-    files_to_zip = os.listdir('{}/{}/out/'.format(output_path, zip_file))
-    out_zip_file = '{}/{}/out/out.zip'.format(output_path, zip_file)
-    zip_ref = zipfile.ZipFile(out_zip_file, 'w')
-    for file in files_to_zip:
-        zip_ref.write(out_user_path + file, file)
-    zip_ref.close()
-    domain = '127.0.0.1:8000/'
-    link = 'http://{}download_{}'.format(domain, zip_file)
-    send_mail(email,
-              'Pine detected your images.',
-              '''We have processed your pics.
-              You can download images and metrics at {}.''',
-              link)
-
+    # files_to_zip = os.listdir('{}/{}/out/'.format(output_path, zip_file))
+    # out_zip_file = '{}/{}/out/out.zip'.format(output_path, zip_file)
+    # zip_ref = zipfile.ZipFile(out_zip_file, 'w')
+    # for file in files_to_zip:
+    #     zip_ref.write(out_user_path + file, file)
+    # zip_ref.close()
+    # domain = '127.0.0.1:8000/'
+    # link = 'http://{}download_{}'.format(domain, zip_file)
+    # send_mail(email,
+    #           'Pine detected your images.',
+    #           '''We have processed your pics.
+    #           You can download images and metrics at {}.''',
+    #           link)
 
 
 
