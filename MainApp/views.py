@@ -163,7 +163,7 @@ def about(request):
 
 
 def contact(request):
-    return render(request, 'MainApp/contact.html')
+    return render(request, 'MainApp/contacts.html')
 
 
 
